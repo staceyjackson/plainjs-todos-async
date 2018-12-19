@@ -3,9 +3,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // create an array of todos
     var todosArray = []
 
+    fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => response.json())
+        .then(data => {
+            todosArray = data
+            
+            for(var i = 0; i < todosArray.length; i++) {
+                createListItem(todosArray[i].title)
+            }
+        })
+
     // target the form
     var theForm = document.getElementById('the-form')
-
 
     // when the form is submitted, then execute some instructions
     theForm.addEventListener('submit', function(event) {
@@ -40,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // add the todo to the list item text
         newListItem.innerText = todoText
 
-        console.log('the new list item', newListItem)
         var listOfTodos = document.getElementById('list-of-todos')
 
         listOfTodos.appendChild(newListItem)
